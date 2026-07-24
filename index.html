@@ -1062,10 +1062,10 @@
             drawFrame(); // disegna stato iniziale sotto l'overlay
             window.addEventListener('resize', resizeCanvas);
 
-            // Input
-            const wrapper = document.getElementById('game-wrapper');
-            wrapper.addEventListener('click', onJumpInput);
-            wrapper.addEventListener('touchstart', function (e) {
+            // Input: ascolta SOLO sul canvas, cos\u00ec l'overlay col bottone
+            // riceve normalmente i tap senza essere intercettato.
+            game.canvas.addEventListener('click', onJumpInput);
+            game.canvas.addEventListener('touchstart', function (e) {
                 e.preventDefault();
                 onJumpInput();
             }, { passive: false });
@@ -1076,6 +1076,16 @@
                     onJumpInput();
                 }
             });
+
+            // Bottone iniziale "Inizia la corsa" (statico in HTML):
+            // aggiungo anche touchstart per risposta immediata su mobile.
+            const startBtn = document.querySelector('#game-status button');
+            if (startBtn) {
+                startBtn.addEventListener('touchstart', function (e) {
+                    e.preventDefault();
+                    startGame();
+                }, { passive: false });
+            }
         }
 
         function resizeCanvas() {
@@ -1425,7 +1435,17 @@
             const h = document.createElement('h3'); h.textContent = title;
             const p = document.createElement('p'); p.textContent = text;
             const b = document.createElement('button'); b.textContent = btnLabel;
-            b.addEventListener('click', btnAction);
+            b.type = 'button';
+            // Sia click (desktop) sia touchstart (mobile, risposta immediata)
+            let fired = false;
+            const trigger = function (ev) {
+                if (fired) return;
+                fired = true;
+                ev.preventDefault();
+                btnAction();
+            };
+            b.addEventListener('click', trigger);
+            b.addEventListener('touchstart', trigger, { passive: false });
             el.appendChild(h); el.appendChild(p); el.appendChild(b);
             el.style.display = 'flex';
         }
