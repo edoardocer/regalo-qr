@@ -1,0 +1,1437 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Guardiano di Erebor 🐉</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=MedievalSharp&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================================
+           RESET & VARIABILI
+        ========================================================= */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --gold: #d4af37;
+            --gold-bright: #f5d97b;
+            --gold-deep: #8a6d3b;
+            --parchment: #e6d3b8;
+            --parchment-soft: #dfd5c6;
+            --blood: #5e1919;
+            --blood-bright: #b32424;
+            --ember: #ff5500;
+            --ember-yellow: #ffb347;
+            --dark-1: #0d0606;
+            --dark-2: #1c0d0d;
+        }
+
+        html, body { height: 100%; }
+
+        body {
+            background:
+                radial-gradient(ellipse at 20% 10%, rgba(94,25,25,0.35) 0%, transparent 55%),
+                radial-gradient(ellipse at 80% 90%, rgba(212,175,55,0.12) 0%, transparent 60%),
+                linear-gradient(135deg, var(--dark-1) 0%, var(--dark-2) 50%, #050202 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            color: var(--parchment-soft);
+            font-family: 'Cinzel', 'Palatino', 'Georgia', serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Texture pergamena leggera */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0 1px, transparent 1px 3px),
+                repeating-linear-gradient(90deg, rgba(0,0,0,0.06) 0 1px, transparent 1px 3px);
+            mix-blend-mode: overlay;
+            z-index: 2;
+        }
+
+        /* Vignetta scura */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.75) 100%);
+            z-index: 3;
+        }
+
+        /* =========================================================
+           CONTENITORE FORTEZZA
+        ========================================================= */
+        .container {
+            background:
+                radial-gradient(ellipse at top, rgba(212,175,55,0.05) 0%, transparent 60%),
+                linear-gradient(180deg, #1e1a15 0%, #120f0c 100%);
+            border: 2px solid var(--gold-deep);
+            outline: 1px solid #4a1111;
+            outline-offset: -8px;
+            padding: 55px 40px 45px;
+            border-radius: 6px;
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.9),
+                inset 0 0 60px rgba(0,0,0,0.85),
+                inset 0 0 2px rgba(212,175,55,0.4);
+            text-align: center;
+            max-width: 560px;
+            width: 100%;
+            z-index: 10;
+            position: relative;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 12px; left: 12px; right: 12px; bottom: 12px;
+            border: 1px solid rgba(212,175,55,0.25);
+            pointer-events: none;
+            border-radius: 3px;
+        }
+
+        /* Angoli dorati */
+        .corner {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--gold);
+            opacity: 0.85;
+            pointer-events: none;
+        }
+        .corner.tl { top: 6px; left: 6px;    border-right: none; border-bottom: none; }
+        .corner.tr { top: 6px; right: 6px;   border-left: none;  border-bottom: none; }
+        .corner.bl { bottom: 6px; left: 6px; border-right: none; border-top: none; }
+        .corner.br { bottom: 6px; right: 6px;border-left: none;  border-top: none; }
+
+        /* Ornamento centrale in alto */
+        .ornament {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 26px;
+            background: linear-gradient(180deg, #1e1a15 0%, #0d0906 100%);
+            border: 1px solid var(--gold-deep);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--gold);
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.7);
+        }
+        .ornament::before { content: '❖'; }
+
+        /* Animazione d'ingresso */
+        .fade-in {
+            animation: epicEntrance 1.1s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+        @keyframes epicEntrance {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); filter: blur(6px); }
+            to   { opacity: 1; transform: scale(1)    translateY(0);    filter: blur(0); }
+        }
+
+        /* =========================================================
+           PERGAMENA / MONOLOGO
+        ========================================================= */
+        .speech-bubble {
+            position: relative;
+            background: linear-gradient(180deg, rgba(30,15,15,0.9) 0%, rgba(15,8,8,0.9) 100%);
+            color: var(--parchment);
+            border: 1px solid var(--blood);
+            padding: 26px 34px;
+            margin-bottom: 30px;
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.7),
+                inset 0 0 30px rgba(94,25,25,0.25);
+        }
+        .speech-bubble::before,
+        .speech-bubble::after {
+            content: '❦';
+            position: absolute;
+            color: var(--gold-deep);
+            font-size: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .speech-bubble::before { left: 10px; }
+        .speech-bubble::after  { right: 10px; }
+
+        .speech-bubble h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-weight: 600;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9), 0 0 12px rgba(212,175,55,0.15);
+        }
+
+        /* =========================================================
+           DRAGHETTO SVG ANIMATO
+        ========================================================= */
+        .dragon-stage {
+            position: relative;
+            width: 260px;
+            height: 240px;
+            margin: 0 auto 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dragon-aura {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center,
+                rgba(255,120,40,0.25) 0%,
+                rgba(212,175,55,0.12) 30%,
+                transparent 65%);
+            filter: blur(6px);
+            animation: auraPulse 4s ease-in-out infinite;
+            z-index: 0;
+        }
+        @keyframes auraPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50%      { opacity: 1;   transform: scale(1.08); }
+        }
+
+        .dragon-floor {
+            position: absolute;
+            bottom: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 22px;
+            background: radial-gradient(ellipse at center,
+                rgba(212,175,55,0.35) 0%,
+                rgba(212,175,55,0.1) 40%,
+                transparent 70%);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: floorPulse 3s ease-in-out infinite;
+        }
+        @keyframes floorPulse {
+            0%, 100% { opacity: 0.7; transform: translateX(-50%) scaleX(1); }
+            50%      { opacity: 1;   transform: translateX(-50%) scaleX(1.15); }
+        }
+
+        .dragon-svg {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            z-index: 2;
+            animation: dragonFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 12px 18px rgba(0,0,0,0.75))
+                    drop-shadow(0 0 22px rgba(255,90,20,0.35));
+        }
+        @keyframes dragonFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50%      { transform: translateY(-14px) rotate(1deg); }
+        }
+
+        /* Ali che sbattono */
+        .wing-left  { transform-origin: 100px 105px; animation: flapLeft  0.9s ease-in-out infinite; }
+        .wing-right { transform-origin: 100px 105px; animation: flapRight 0.9s ease-in-out infinite; }
+        @keyframes flapLeft {
+            0%, 100% { transform: rotate(-6deg)  scaleY(1); }
+            50%      { transform: rotate(-32deg) scaleY(0.85); }
+        }
+        @keyframes flapRight {
+            0%, 100% { transform: rotate(6deg)  scaleY(1); }
+            50%      { transform: rotate(32deg) scaleY(0.85); }
+        }
+
+        /* Coda ondeggiante */
+        .tail { transform-origin: 130px 145px; animation: tailWag 2.5s ease-in-out infinite; }
+        @keyframes tailWag {
+            0%, 100% { transform: rotate(-4deg); }
+            50%      { transform: rotate(6deg); }
+        }
+
+        /* Occhio che sbatte */
+        .eye-lid {
+            transform-origin: 102px 95px;
+            animation: blink 4.5s infinite;
+        }
+        @keyframes blink {
+            0%, 92%, 100% { transform: scaleY(0); }
+            94%, 98%      { transform: scaleY(1); }
+        }
+
+        /* Sbuffo di fuoco */
+        .fire-group {
+            transform-origin: 75px 115px;
+            animation: fireBreath 5s ease-in-out infinite;
+            opacity: 0;
+        }
+        @keyframes fireBreath {
+            0%, 60%, 100% { opacity: 0;   transform: scaleX(0.3) scaleY(0.6); }
+            70%           { opacity: 1;   transform: scaleX(1)   scaleY(1); }
+            85%           { opacity: 0.8; transform: scaleX(1.1) scaleY(0.9); }
+        }
+        .fire-inner { animation: fireFlicker 0.15s infinite alternate; }
+        @keyframes fireFlicker {
+            from { opacity: 1; }
+            to   { opacity: 0.75; }
+        }
+
+        /* =========================================================
+           INPUT
+        ========================================================= */
+        input[type="text"] {
+            width: 100%;
+            padding: 16px 20px;
+            margin-bottom: 26px;
+            background: linear-gradient(180deg, #0d0a08 0%, #16110d 100%);
+            border: 1px solid #54432d;
+            color: #f5ebd0;
+            font-size: 1.05rem;
+            letter-spacing: 1.5px;
+            text-align: center;
+            outline: none;
+            font-family: inherit;
+            transition: all 0.4s ease;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.7);
+        }
+        input[type="text"]::placeholder {
+            color: #7a6b4f;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        input[type="text"]:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 22px rgba(212,175,55,0.35), inset 0 0 12px rgba(0,0,0,0.9);
+            color: var(--gold-bright);
+        }
+
+        /* =========================================================
+           BOTTONI
+        ========================================================= */
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            position: relative;
+            background: linear-gradient(180deg, #4a1414 0%, #260808 100%);
+            color: var(--gold);
+            border: 1px solid var(--gold-deep);
+            padding: 15px 36px;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            cursor: pointer;
+            font-weight: 700;
+            font-family: inherit;
+            transition: all 0.35s ease;
+            box-shadow:
+                0 6px 18px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,215,120,0.15);
+            overflow: hidden;
+        }
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(245,217,123,0.35) 50%,
+                transparent 100%);
+            transition: left 0.6s ease;
+        }
+        button:hover {
+            background: linear-gradient(180deg, #661c1c 0%, #380d0d 100%);
+            color: #fff8e0;
+            box-shadow:
+                0 0 28px rgba(212,175,55,0.55),
+                0 8px 22px rgba(0,0,0,0.7),
+                inset 0 1px 0 rgba(255,215,120,0.3);
+            transform: translateY(-3px);
+        }
+        button:hover::before { left: 100%; }
+        button:active { transform: translateY(-1px); }
+
+        .btn-secondary {
+            background: linear-gradient(180deg, #24201c 0%, #141210 100%);
+            border: 1px solid #4a4135;
+            color: #8c8273;
+        }
+        .btn-secondary:hover {
+            background: linear-gradient(180deg, #332d27 0%, #1f1b18 100%);
+            color: var(--parchment-soft);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.7);
+        }
+
+        /* =========================================================
+           CAMERA DEL TESORO
+        ========================================================= */
+        .reveal-title {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold-bright);
+            font-size: 1.7rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 12px rgba(212,175,55,0.6), 0 2px 4px rgba(0,0,0,0.8);
+            margin-bottom: 8px;
+        }
+        .reveal-sub {
+            margin-top: 8px;
+            font-size: 1rem;
+            color: var(--parchment);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .gift-box {
+            border: 1px solid var(--gold);
+            padding: 32px 26px;
+            background:
+                radial-gradient(ellipse at top, rgba(212,175,55,0.15) 0%, transparent 70%),
+                linear-gradient(180deg, #1c160b 0%, #0a0804 100%);
+            margin-top: 28px;
+            box-shadow: inset 0 0 30px rgba(212,175,55,0.18), 0 12px 34px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .gift-box::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border: 1px dashed rgba(212,175,55,0.35);
+            pointer-events: none;
+        }
+        .gift-box h2 {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold-bright);
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(212,175,55,0.5);
+        }
+
+        .footnote {
+            margin-top: 35px;
+            font-size: 0.72rem;
+            color: #6a5f4f;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hidden { display: none !important; }
+
+        /* =========================================================
+           MODALI
+        ========================================================= */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.92);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+            animation: fadeOverlay 0.35s ease;
+        }
+        @keyframes fadeOverlay {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        .modal-content {
+            background:
+                radial-gradient(ellipse at top, rgba(179,36,36,0.2) 0%, transparent 70%),
+                #120c0c;
+            border: 1px solid var(--blood-bright);
+            padding: 42px 32px;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 0 50px rgba(179, 36, 36, 0.45), inset 0 0 30px rgba(0,0,0,0.7);
+            animation: popUp 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border: 1px solid rgba(179,36,36,0.35);
+            pointer-events: none;
+        }
+        @keyframes popUp {
+            from { transform: scale(0.85) rotate(-2deg); opacity: 0; }
+            to   { transform: scale(1)    rotate(0);     opacity: 1; }
+        }
+
+        .modal-content h3 {
+            margin-bottom: 15px;
+            color: var(--blood-bright);
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'Cinzel Decorative', serif;
+            text-shadow: 0 0 14px rgba(179,36,36,0.6);
+        }
+        .modal-content p {
+            color: #c8b9a4;
+            line-height: 1.7;
+            font-size: 0.98rem;
+        }
+
+        .btn-close {
+            background: linear-gradient(180deg, #2a1e1e 0%, #150e0e 100%);
+            border: 1px solid #644848;
+            color: #b5a89a;
+            padding: 11px 32px;
+            margin-top: 25px;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+        }
+        .btn-close:hover {
+            background: linear-gradient(180deg, #3a2626 0%, #1f1414 100%);
+            color: #fff;
+        }
+
+        /* =========================================================
+           MINI GIOCO - CORSA AD OSTACOLI
+        ========================================================= */
+        .game-intro {
+            font-family: 'Cinzel', serif;
+            color: var(--parchment);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 4px 0 18px;
+            font-style: italic;
+        }
+
+        .game-wrapper {
+            position: relative;
+            width: 100%;
+            margin: 0 auto 22px;
+            border: 1px solid var(--gold-deep);
+            background: linear-gradient(180deg, #1a0f08 0%, #2a1a0d 55%, #3a2410 100%);
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.85), 0 8px 22px rgba(0,0,0,0.7);
+            overflow: hidden;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+        }
+
+        #game-canvas {
+            display: block;
+            width: 100%;
+            height: 200px;
+            cursor: pointer;
+        }
+
+        .game-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .progress-track {
+            position: relative;
+            flex: 1;
+            height: 10px;
+            background: linear-gradient(180deg, #0a0604 0%, #150c07 100%);
+            border: 1px solid var(--gold-deep);
+            overflow: hidden;
+        }
+        .progress-fill {
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 0%;
+            background: linear-gradient(90deg, var(--blood-bright) 0%, var(--ember) 50%, var(--gold-bright) 100%);
+            box-shadow: 0 0 10px rgba(255,120,30,0.6);
+            transition: width 0.15s linear;
+        }
+
+        .game-hint {
+            text-align: center;
+            font-family: 'Cinzel', serif;
+            font-size: 0.72rem;
+            letter-spacing: 2.5px;
+            color: #8c7d5f;
+            text-transform: uppercase;
+            margin-top: -8px;
+            margin-bottom: 16px;
+        }
+
+        .game-status {
+            position: absolute;
+            inset: 0;
+            background: rgba(10,5,3,0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            color: var(--gold-bright);
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(2px);
+            z-index: 5;
+        }
+        .game-status h3 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 12px rgba(212,175,55,0.6);
+        }
+        .game-status p {
+            font-size: 0.85rem;
+            color: var(--parchment);
+            max-width: 320px;
+            line-height: 1.5;
+        }
+        .game-status button {
+            padding: 10px 26px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* =========================================================
+           BRACI ARDENTI
+        ========================================================= */
+        .ember {
+            position: absolute;
+            background: radial-gradient(circle, var(--ember-yellow) 0%, var(--ember) 40%, rgba(230,73,0,0) 75%);
+            border-radius: 50%;
+            pointer-events: none;
+            bottom: -20px;
+            animation: floatUp linear infinite;
+            box-shadow: 0 0 8px rgba(255,120,30,0.6);
+        }
+        @keyframes floatUp {
+            0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0.95; }
+            50%  { transform: translateY(-50vh) translateX(40px) scale(1.3); opacity: 0.65; }
+            100% { transform: translateY(-105vh) translateX(-30px) scale(0.3); opacity: 0; }
+        }
+
+        /* =========================================================
+           RESPONSIVE
+        ========================================================= */
+        @media (max-width: 500px) {
+            .container { padding: 45px 22px 35px; }
+            .speech-bubble h1 { font-size: 0.95rem; }
+            .speech-bubble { padding: 22px 26px; }
+            .dragon-stage { width: 220px; height: 210px; }
+            .dragon-svg { width: 190px; height: 190px; }
+            button { padding: 13px 24px; font-size: 0.82rem; letter-spacing: 1.5px; }
+            .reveal-title { font-size: 1.35rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BRACI ARDENTI DI SFONDO -->
+    <div id="ember-container" style="position: fixed; inset: 0; pointer-events: none; z-index: 1;"></div>
+
+    <!-- ================================================
+         DEFINIZIONE DRAGHETTO SVG (riutilizzabile)
+    ================================================= -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <radialGradient id="bodyGrad" cx="45%" cy="40%" r="70%">
+                <stop offset="0%"   stop-color="#c93a1a"/>
+                <stop offset="55%"  stop-color="#7a1c0d"/>
+                <stop offset="100%" stop-color="#3a0d05"/>
+            </radialGradient>
+            <linearGradient id="bellyGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%"   stop-color="#f5c96a"/>
+                <stop offset="100%" stop-color="#a8730f"/>
+            </linearGradient>
+            <radialGradient id="wingGrad" cx="30%" cy="40%" r="80%">
+                <stop offset="0%"   stop-color="#8a2416"/>
+                <stop offset="100%" stop-color="#2c0704"/>
+            </radialGradient>
+            <radialGradient id="fireGrad" cx="100%" cy="50%" r="100%">
+                <stop offset="0%"   stop-color="#fff7a8"/>
+                <stop offset="30%"  stop-color="#ffb347"/>
+                <stop offset="70%"  stop-color="#ff4500"/>
+                <stop offset="100%" stop-color="rgba(139,0,0,0)"/>
+            </radialGradient>
+            <radialGradient id="eyeGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="0%"   stop-color="#fff8c8"/>
+                <stop offset="60%"  stop-color="#f5d97b"/>
+                <stop offset="100%" stop-color="#a8730f"/>
+            </radialGradient>
+
+            <symbol id="dragon" viewBox="0 0 220 220">
+                <!-- SBUFFO DI FUOCO -->
+                <g class="fire-group">
+                    <g class="fire-inner">
+                        <path d="M 78 115
+                                 Q 55 107, 30 112
+                                 Q 15 115, 5 117
+                                 Q 15 122, 30 125
+                                 Q 55 127, 78 122 Z"
+                              fill="url(#fireGrad)"/>
+                        <path d="M 78 117
+                                 Q 60 115, 40 117
+                                 Q 30 118, 22 119
+                                 Q 30 121, 40 122
+                                 Q 60 123, 78 121 Z"
+                              fill="#fff7a8" opacity="0.85"/>
+                    </g>
+                </g>
+
+                <!-- CODA -->
+                <g class="tail">
+                    <path d="M 130 145
+                             Q 165 155, 185 140
+                             Q 200 130, 205 115
+                             Q 195 122, 180 128
+                             Q 165 135, 145 130 Z"
+                          fill="url(#bodyGrad)" stroke="#2a0805" stroke-width="1.5"/>
+                    <path d="M 200 118
+                             L 213 108
+                             L 208 122
+                             L 218 118
+                             L 205 132 Z"
+                          fill="#c93a1a" stroke="#2a0805" stroke-width="1.2"/>
+                    <path d="M 150 138 L 152 132 L 155 138 Z
+                             M 165 138 L 168 130 L 172 138 Z
+                             M 180 135 L 184 126 L 188 135 Z"
+                          fill="#f5c96a" stroke="#2a0805" stroke-width="0.8"/>
+                </g>
+
+                <!-- ALA SINISTRA -->
+                <g class="wing-left">
+                    <path d="M 100 105
+                             Q 60 60, 25 55
+                             Q 40 75, 45 95
+                             Q 30 88, 15 92
+                             Q 35 105, 55 110
+                             Q 40 115, 30 125
+                             Q 55 122, 75 118
+                             Q 85 115, 100 110 Z"
+                          fill="url(#wingGrad)" stroke="#1a0503" stroke-width="1.5"/>
+                    <path d="M 100 105 Q 70 80, 45 70 M 100 108 Q 65 95, 40 100 M 100 110 Q 70 115, 50 120"
+                          stroke="#4a1108" stroke-width="1.2" fill="none" opacity="0.7"/>
+                </g>
+
+                <!-- ALA DESTRA -->
+                <g class="wing-right">
+                    <path d="M 100 105
+                             Q 140 60, 175 55
+                             Q 160 75, 155 95
+                             Q 170 88, 185 92
+                             Q 165 105, 145 110
+                             Q 160 115, 170 125
+                             Q 145 122, 125 118
+                             Q 115 115, 100 110 Z"
+                          fill="url(#wingGrad)" stroke="#1a0503" stroke-width="1.5"/>
+                    <path d="M 100 105 Q 130 80, 155 70 M 100 108 Q 135 95, 160 100 M 100 110 Q 130 115, 150 120"
+                          stroke="#4a1108" stroke-width="1.2" fill="none" opacity="0.7"/>
+                </g>
+
+                <!-- CORPO -->
+                <ellipse cx="110" cy="130" rx="42" ry="38"
+                         fill="url(#bodyGrad)" stroke="#2a0805" stroke-width="2"/>
+                <ellipse cx="110" cy="140" rx="26" ry="24"
+                         fill="url(#bellyGrad)" opacity="0.95"/>
+                <path d="M 92 135 Q 110 138, 128 135 M 90 145 Q 110 148, 130 145 M 94 155 Q 110 158, 126 155"
+                      stroke="#8a5a15" stroke-width="0.8" fill="none" opacity="0.6"/>
+
+                <!-- CRESTA DORSALE -->
+                <path d="M 92 100 L 96 88 L 100 100
+                         M 105 100 L 110 84 L 115 100
+                         M 120 105 L 126 92 L 130 105
+                         M 133 115 L 140 105 L 143 118"
+                      fill="#f5c96a" stroke="#2a0805" stroke-width="1"/>
+
+                <!-- TESTA -->
+                <ellipse cx="95" cy="98" rx="34" ry="30"
+                         fill="url(#bodyGrad)" stroke="#2a0805" stroke-width="2"/>
+                <!-- Muso -->
+                <path d="M 65 112
+                         Q 55 116, 60 122
+                         Q 70 126, 82 122
+                         Q 90 119, 92 112
+                         Z"
+                      fill="#a82c14" stroke="#2a0805" stroke-width="1.5"/>
+                <!-- Bocca aperta -->
+                <path d="M 60 120 Q 72 124, 88 118"
+                      stroke="#2a0805" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <!-- Dentini -->
+                <path d="M 70 119 L 72 124 L 74 119 Z
+                         M 78 119 L 80 123 L 82 119 Z"
+                      fill="#fff8e0" stroke="#2a0805" stroke-width="0.5"/>
+                <!-- Narici -->
+                <ellipse cx="66" cy="112" rx="1.8" ry="1.3" fill="#2a0805"/>
+
+                <!-- Corna -->
+                <path d="M 82 75 Q 78 60, 70 52 Q 76 58, 84 68 Z"
+                      fill="#f5d97b" stroke="#2a0805" stroke-width="1.2"/>
+                <path d="M 108 72 Q 112 55, 122 48 Q 114 60, 112 70 Z"
+                      fill="#f5d97b" stroke="#2a0805" stroke-width="1.2"/>
+
+                <!-- Orecchio -->
+                <path d="M 118 88 Q 128 82, 130 92 Q 124 92, 118 96 Z"
+                      fill="#7a1c0d" stroke="#2a0805" stroke-width="1.2"/>
+
+                <!-- Occhio -->
+                <circle cx="102" cy="95" r="7"   fill="#fff8e0" stroke="#2a0805" stroke-width="1.2"/>
+                <circle cx="103" cy="95" r="4.5" fill="url(#eyeGrad)"/>
+                <ellipse cx="103" cy="95" rx="1.4" ry="3.5" fill="#2a0805"/>
+                <circle cx="102" cy="93" r="1" fill="#fff"/>
+                <!-- Palpebra -->
+                <ellipse class="eye-lid" cx="102" cy="95" rx="7.5" ry="7"
+                         fill="#7a1c0d" stroke="#2a0805" stroke-width="1.2"/>
+                <!-- Sopracciglio nobile -->
+                <path d="M 96 85 Q 104 82, 112 87"
+                      stroke="#2a0805" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+                <!-- Zampette -->
+                <ellipse cx="90" cy="168" rx="10" ry="8" fill="#7a1c0d" stroke="#2a0805" stroke-width="1.5"/>
+                <path d="M 82 172 L 80 176 M 88 174 L 87 178 M 94 174 L 95 178"
+                      stroke="#2a0805" stroke-width="1.2" stroke-linecap="round"/>
+                <ellipse cx="125" cy="168" rx="10" ry="8" fill="#7a1c0d" stroke="#2a0805" stroke-width="1.5"/>
+                <path d="M 117 172 L 115 176 M 123 174 L 122 178 M 130 174 L 132 178"
+                      stroke="#2a0805" stroke-width="1.2" stroke-linecap="round"/>
+            </symbol>
+        </defs>
+    </svg>
+
+    <!-- ================================================
+         STEP 1: L'INGRESSO DELLA CAVERNA
+    ================================================= -->
+    <div id="step-name" class="container fade-in">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="ornament"></div>
+
+        <div class="speech-bubble">
+            <h1>"Se hai trovato questo link vuol dire che c'è qualcosa per te... come ti chiami, viandante?"</h1>
+        </div>
+
+        <div class="dragon-stage">
+            <div class="dragon-aura"></div>
+            <div class="dragon-floor"></div>
+            <svg class="dragon-svg" viewBox="0 0 220 220" role="img" aria-label="Draghetto guardiano">
+                <use href="#dragon"/>
+            </svg>
+        </div>
+
+        <input type="text" id="name-input" placeholder="Pronuncia il tuo nome, mortale...">
+        <button onclick="verifyName()">Dichiara la tua identità</button>
+    </div>
+
+    <!-- ================================================
+         STEP 1.5: IL SOSPETTO DEL DRAGO
+    ================================================= -->
+    <div id="step-trust" class="container hidden">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="ornament"></div>
+
+        <div class="speech-bubble">
+            <h1>"Va bene... ma ancora non mi fido. Sei per caso il designer più bello e bravo del mondo?"</h1>
+        </div>
+
+        <div class="dragon-stage">
+            <div class="dragon-aura"></div>
+            <div class="dragon-floor"></div>
+            <svg class="dragon-svg" viewBox="0 0 220 220" role="img" aria-label="Draghetto sospettoso">
+                <use href="#dragon"/>
+            </svg>
+        </div>
+
+        <div class="btn-group">
+            <button onclick="handleTrustYes()">Sì, lo sono</button>
+            <button class="btn-secondary" onclick="handleTrustNo()">No</button>
+        </div>
+    </div>
+
+    <!-- ================================================
+         STEP 1.75: LA PROVA DEL DRAGHETTO
+    ================================================= -->
+    <div id="step-game" class="container hidden">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="ornament"></div>
+
+        <div class="speech-bubble">
+            <h1>"Prima del tesoro, un'ultima prova: guida il draghetto fino al vessillo dorato!"</h1>
+        </div>
+
+        <p class="game-intro">Tocca lo schermo (o premi <strong style="color: var(--gold-bright);">SPAZIO</strong>) per far saltare il draghetto sopra gli ostacoli.</p>
+
+        <div class="game-hud">
+            <span>🐉 Partenza</span>
+            <div class="progress-track">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+            <span>🚩 Traguardo</span>
+        </div>
+
+        <div class="game-wrapper" id="game-wrapper">
+            <canvas id="game-canvas"></canvas>
+            <div id="game-status" class="game-status">
+                <h3>Pronto, viandante?</h3>
+                <p>Il draghetto deve raggiungere il vessillo dorato evitando le rocce ardenti.</p>
+                <button onclick="startGame()">Inizia la corsa</button>
+            </div>
+        </div>
+
+        <p class="game-hint">✦ Tap / Click / Spazio per saltare ✦</p>
+    </div>
+
+    <!-- ================================================
+         STEP 2: L'ORO SBLOCCATO
+    ================================================= -->
+    <div id="step-reveal" class="container hidden">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="ornament"></div>
+
+        <div class="dragon-stage">
+            <div class="dragon-aura" style="background: radial-gradient(ellipse at center, rgba(212,175,55,0.4) 0%, rgba(255,220,120,0.15) 30%, transparent 70%);"></div>
+            <div class="dragon-floor"></div>
+            <svg class="dragon-svg" viewBox="0 0 220 220" role="img" aria-label="Draghetto placato">
+                <use href="#dragon"/>
+            </svg>
+        </div>
+
+        <h1 class="reveal-title">Identità Confermata 👑</h1>
+        <p class="reveal-sub">
+            Benvenuto, <strong style="color: var(--gold-bright);">Riccardo</strong>.<br>
+            L'Arkenpietra riflette la tua verità. Il tesoro è tuo.
+        </p>
+
+        <div class="gift-box">
+            <h2>🏆 L'Antico Bottino</h2>
+            <p style="margin-top: 10px; color: #c4b491; font-size: 0.95rem; font-style: italic; line-height: 1.6;">
+                Inserisci qui la descrizione finale o il link al regalo vero e proprio!
+            </p>
+        </div>
+
+        <p class="footnote">✦ Custodito nei meandri della montagna ✦</p>
+    </div>
+
+    <!-- ================================================
+         POP-UP NOME ERRATO
+    ================================================= -->
+    <div id="modal-wrong-name" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>"Non sei tu l'eletto!" 🚫</h3>
+            <p>La montagna trema. Il tuo nome non è scritto nelle antiche profezie. Sparisci prima che sia troppo tardi.</p>
+            <button class="btn-close" onclick="closeModal('modal-wrong-name')">Ritenta</button>
+        </div>
+    </div>
+
+    <!-- ================================================
+         POP-UP RIFIUTO FIDUCIA
+    ================================================= -->
+    <div id="modal-go-away" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>"Allora non sei tu! Vai via!" 🔥</h3>
+            <p>Il drago spalanca le fauci esalando fiamme distruttive! Hai tradito le mie aspettative. Ritorna nel buio!</p>
+            <button class="btn-close" onclick="resetToFirstPage()">Torna all'inizio</button>
+        </div>
+    </div>
+
+    <script>
+        /* ============ BRACI ARDENTI ============ */
+        function createEmber() {
+            const container = document.getElementById('ember-container');
+            const ember = document.createElement('div');
+            ember.classList.add('ember');
+            ember.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 6 + 3;
+            ember.style.width  = size + 'px';
+            ember.style.height = size + 'px';
+            const duration = Math.random() * 4 + 4;
+            ember.style.animationDuration = duration + 's';
+            container.appendChild(ember);
+            setTimeout(() => ember.remove(), duration * 1000);
+        }
+        setInterval(createEmber, 220);
+
+        /* ============ LOGICA STEP ============ */
+        function verifyName() {
+            const nameInput = document.getElementById('name-input');
+            const cleanedName = nameInput.value.trim().toLowerCase();
+
+            if (cleanedName === "riccardo" || cleanedName === "riccardo spaziante") {
+                document.getElementById('step-name').classList.add('hidden');
+                const stepTrust = document.getElementById('step-trust');
+                stepTrust.classList.remove('hidden');
+                stepTrust.classList.add('fade-in');
+            } else {
+                document.getElementById('modal-wrong-name').classList.remove('hidden');
+            }
+        }
+
+        function handleTrustYes() {
+            document.getElementById('step-trust').classList.add('hidden');
+            const stepGame = document.getElementById('step-game');
+            stepGame.classList.remove('hidden');
+            stepGame.classList.add('fade-in');
+            // Prepara il canvas quando lo step diventa visibile
+            setTimeout(initGame, 50);
+        }
+
+        function showReveal() {
+            document.getElementById('step-game').classList.add('hidden');
+            const stepReveal = document.getElementById('step-reveal');
+            stepReveal.classList.remove('hidden');
+            stepReveal.classList.add('fade-in');
+        }
+
+        function handleTrustNo() {
+            document.getElementById('modal-go-away').classList.remove('hidden');
+        }
+
+        function resetToFirstPage() {
+            document.getElementById('modal-go-away').classList.add('hidden');
+            document.getElementById('step-trust').classList.add('hidden');
+            document.getElementById('name-input').value = "";
+            const stepName = document.getElementById('step-name');
+            stepName.classList.remove('hidden');
+            stepName.classList.add('fade-in');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        document.getElementById('name-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') verifyName();
+        });
+
+        /* =========================================================
+           MINI GIOCO - CORSA AD OSTACOLI
+        ========================================================= */
+        const game = {
+            canvas: null,
+            ctx: null,
+            width: 0,
+            height: 0,
+            dpr: 1,
+            running: false,
+            rafId: null,
+            lastTime: 0,
+            // Player
+            playerX: 60,
+            playerY: 0,
+            playerVY: 0,
+            playerSize: 42,
+            gravity: 2200,   // px/s^2
+            jumpVel: -780,   // px/s
+            grounded: true,
+            // Mondo
+            groundY: 0,
+            speed: 260,      // px/s (aumenta col tempo)
+            distance: 0,
+            goalDistance: 2200,
+            obstacles: [],
+            nextObstacleAt: 0,
+            bgOffset: 0,
+            wingPhase: 0
+        };
+
+        function initGame() {
+            game.canvas = document.getElementById('game-canvas');
+            if (!game.canvas) return;
+            game.ctx = game.canvas.getContext('2d');
+            resizeCanvas();
+            drawFrame(); // disegna stato iniziale sotto l'overlay
+            window.addEventListener('resize', resizeCanvas);
+
+            // Input
+            const wrapper = document.getElementById('game-wrapper');
+            wrapper.addEventListener('click', onJumpInput);
+            wrapper.addEventListener('touchstart', function (e) {
+                e.preventDefault();
+                onJumpInput();
+            }, { passive: false });
+            document.addEventListener('keydown', function (e) {
+                if ((e.code === 'Space' || e.key === ' ' || e.key === 'ArrowUp') &&
+                    !document.getElementById('step-game').classList.contains('hidden')) {
+                    e.preventDefault();
+                    onJumpInput();
+                }
+            });
+        }
+
+        function resizeCanvas() {
+            if (!game.canvas) return;
+            const rect = game.canvas.getBoundingClientRect();
+            game.dpr = window.devicePixelRatio || 1;
+            game.canvas.width  = Math.floor(rect.width  * game.dpr);
+            game.canvas.height = Math.floor(rect.height * game.dpr);
+            game.width  = rect.width;
+            game.height = rect.height;
+            game.ctx.setTransform(game.dpr, 0, 0, game.dpr, 0, 0);
+            game.groundY = game.height - 28;
+            if (!game.running) {
+                game.playerY = game.groundY - game.playerSize;
+            }
+        }
+
+        function onJumpInput() {
+            if (!game.running) return;
+            if (game.grounded) {
+                game.playerVY = game.jumpVel;
+                game.grounded = false;
+            }
+        }
+
+        function startGame() {
+            resizeCanvas();
+            game.running = true;
+            game.playerY = game.groundY - game.playerSize;
+            game.playerVY = 0;
+            game.grounded = true;
+            game.speed = 260;
+            game.distance = 0;
+            game.obstacles = [];
+            game.nextObstacleAt = 450;
+            game.bgOffset = 0;
+            game.lastTime = performance.now();
+            hideStatus();
+            updateProgress();
+            cancelAnimationFrame(game.rafId);
+            game.rafId = requestAnimationFrame(gameLoop);
+        }
+
+        function gameLoop(now) {
+            const dt = Math.min((now - game.lastTime) / 1000, 0.033);
+            game.lastTime = now;
+            update(dt);
+            drawFrame();
+            if (game.running) {
+                game.rafId = requestAnimationFrame(gameLoop);
+            }
+        }
+
+        function update(dt) {
+            // Progressione difficoltà
+            game.speed += 8 * dt; // accelera lentamente
+            game.distance += game.speed * dt;
+            game.bgOffset = (game.bgOffset + game.speed * dt * 0.4) % 40;
+            game.wingPhase += dt * 14;
+
+            // Vittoria
+            if (game.distance >= game.goalDistance) {
+                game.running = false;
+                updateProgress();
+                showStatus('Trionfo! 👑',
+                    'Il draghetto ha raggiunto il vessillo. Il tesoro si sta rivelando...',
+                    'Reclama il tesoro', showReveal);
+                return;
+            }
+
+            // Fisica giocatore
+            game.playerVY += game.gravity * dt;
+            game.playerY  += game.playerVY * dt;
+            if (game.playerY >= game.groundY - game.playerSize) {
+                game.playerY = game.groundY - game.playerSize;
+                game.playerVY = 0;
+                game.grounded = true;
+            }
+
+            // Genera ostacoli
+            if (game.distance >= game.nextObstacleAt && game.distance < game.goalDistance - 400) {
+                spawnObstacle();
+                const gap = 260 + Math.random() * 320 - Math.min(120, game.speed - 260);
+                game.nextObstacleAt = game.distance + Math.max(180, gap);
+            }
+
+            // Muovi ostacoli
+            for (let i = game.obstacles.length - 1; i >= 0; i--) {
+                const o = game.obstacles[i];
+                o.x -= game.speed * dt;
+                if (o.x + o.w < -20) game.obstacles.splice(i, 1);
+            }
+
+            // Collisioni
+            const pb = { x: game.playerX + 6, y: game.playerY + 6, w: game.playerSize - 12, h: game.playerSize - 12 };
+            for (const o of game.obstacles) {
+                const ob = { x: o.x + 4, y: o.y + 4, w: o.w - 8, h: o.h - 6 };
+                if (pb.x < ob.x + ob.w && pb.x + pb.w > ob.x &&
+                    pb.y < ob.y + ob.h && pb.y + pb.h > ob.y) {
+                    game.running = false;
+                    showStatus('Bruciato! 🔥',
+                        'Il draghetto è inciampato in una roccia ardente. Riprova!',
+                        'Riprova', startGame);
+                    return;
+                }
+            }
+
+            updateProgress();
+        }
+
+        function spawnObstacle() {
+            const h = 26 + Math.random() * 18;
+            const w = 22 + Math.random() * 18;
+            game.obstacles.push({
+                x: game.width + 20,
+                y: game.groundY - h,
+                w: w,
+                h: h
+            });
+        }
+
+        function updateProgress() {
+            const pct = Math.min(100, (game.distance / game.goalDistance) * 100);
+            document.getElementById('progress-fill').style.width = pct + '%';
+        }
+
+        function drawFrame() {
+            const ctx = game.ctx;
+            if (!ctx) return;
+            const W = game.width, H = game.height;
+
+            // Cielo caverna
+            const sky = ctx.createLinearGradient(0, 0, 0, H);
+            sky.addColorStop(0, '#1a0f08');
+            sky.addColorStop(1, '#3a2410');
+            ctx.fillStyle = sky;
+            ctx.fillRect(0, 0, W, H);
+
+            // Stelle/braci lontane
+            ctx.fillStyle = 'rgba(255,180,90,0.35)';
+            for (let i = 0; i < 12; i++) {
+                const sx = ((i * 73 - game.bgOffset * 0.3) % W + W) % W;
+                const sy = 20 + (i * 13) % 60;
+                ctx.fillRect(sx, sy, 2, 2);
+            }
+
+            // Montagne di sfondo
+            ctx.fillStyle = 'rgba(20,10,5,0.7)';
+            ctx.beginPath();
+            const mo = game.bgOffset;
+            ctx.moveTo(0, game.groundY);
+            for (let x = -mo; x <= W + 60; x += 60) {
+                ctx.lineTo(x + 30, game.groundY - 55);
+                ctx.lineTo(x + 60, game.groundY);
+            }
+            ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath(); ctx.fill();
+
+            // Terreno
+            const groundGrad = ctx.createLinearGradient(0, game.groundY, 0, H);
+            groundGrad.addColorStop(0, '#6b3410');
+            groundGrad.addColorStop(1, '#2a1405');
+            ctx.fillStyle = groundGrad;
+            ctx.fillRect(0, game.groundY, W, H - game.groundY);
+
+            // Riga oro sul terreno
+            ctx.strokeStyle = 'rgba(212,175,55,0.45)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, game.groundY);
+            ctx.lineTo(W, game.groundY);
+            ctx.stroke();
+
+            // Marker linee terreno che scorrono
+            ctx.strokeStyle = 'rgba(212,175,55,0.2)';
+            for (let x = -game.bgOffset; x < W; x += 40) {
+                ctx.beginPath();
+                ctx.moveTo(x, game.groundY + 6);
+                ctx.lineTo(x + 14, game.groundY + 6);
+                ctx.stroke();
+            }
+
+            // Traguardo (appare avvicinandosi)
+            const remaining = game.goalDistance - game.distance;
+            if (remaining < W) {
+                const flagX = W - remaining + 40;
+                drawFlag(flagX, game.groundY);
+            }
+
+            // Ostacoli
+            for (const o of game.obstacles) drawObstacle(o);
+
+            // Giocatore
+            drawDragon(game.playerX, game.playerY, game.playerSize);
+        }
+
+        function drawObstacle(o) {
+            const ctx = game.ctx;
+            // Roccia
+            const grad = ctx.createLinearGradient(o.x, o.y, o.x, o.y + o.h);
+            grad.addColorStop(0, '#8a2416');
+            grad.addColorStop(1, '#2a0805');
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.moveTo(o.x, o.y + o.h);
+            ctx.lineTo(o.x + o.w * 0.2, o.y + o.h * 0.3);
+            ctx.lineTo(o.x + o.w * 0.5, o.y);
+            ctx.lineTo(o.x + o.w * 0.8, o.y + o.h * 0.4);
+            ctx.lineTo(o.x + o.w, o.y + o.h);
+            ctx.closePath();
+            ctx.fill();
+            // Bagliore ardente in cima
+            ctx.fillStyle = 'rgba(255,120,40,0.7)';
+            ctx.beginPath();
+            ctx.arc(o.x + o.w * 0.5, o.y + 2, 3, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawFlag(x, groundY) {
+            const ctx = game.ctx;
+            // Asta
+            ctx.strokeStyle = '#d4af37';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(x, groundY);
+            ctx.lineTo(x, groundY - 70);
+            ctx.stroke();
+            // Base dorata
+            ctx.fillStyle = '#d4af37';
+            ctx.fillRect(x - 8, groundY - 4, 16, 4);
+            // Vessillo
+            const flagGrad = ctx.createLinearGradient(x, groundY - 70, x + 34, groundY - 40);
+            flagGrad.addColorStop(0, '#f5d97b');
+            flagGrad.addColorStop(1, '#b32424');
+            ctx.fillStyle = flagGrad;
+            ctx.beginPath();
+            ctx.moveTo(x, groundY - 70);
+            ctx.lineTo(x + 34, groundY - 60);
+            ctx.lineTo(x, groundY - 45);
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = '#2a0805';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        function drawDragon(x, y, s) {
+            const ctx = game.ctx;
+            const cx = x + s / 2;
+            const cy = y + s / 2;
+
+            // Ombra a terra
+            ctx.fillStyle = 'rgba(0,0,0,0.4)';
+            ctx.beginPath();
+            ctx.ellipse(cx, game.groundY + 4, s * 0.4, 4, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Coda
+            ctx.fillStyle = '#7a1c0d';
+            ctx.strokeStyle = '#2a0805';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(x + 4, cy + 4);
+            ctx.quadraticCurveTo(x - 8, cy + 10, x - 12, cy - 2);
+            ctx.quadraticCurveTo(x - 4, cy + 2, x + 4, cy - 2);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Corpo
+            const bodyGrad = ctx.createRadialGradient(cx - 4, cy - 4, 4, cx, cy, s * 0.55);
+            bodyGrad.addColorStop(0, '#c93a1a');
+            bodyGrad.addColorStop(1, '#5a1408');
+            ctx.fillStyle = bodyGrad;
+            ctx.beginPath();
+            ctx.ellipse(cx, cy + 2, s * 0.42, s * 0.38, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#2a0805';
+            ctx.lineWidth = 1.4;
+            ctx.stroke();
+
+            // Pancia
+            ctx.fillStyle = '#f5c96a';
+            ctx.beginPath();
+            ctx.ellipse(cx, cy + 6, s * 0.24, s * 0.22, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Ali che sbattono
+            const wingFlap = Math.sin(game.wingPhase) * 0.6;
+            ctx.fillStyle = '#4a1108';
+            ctx.strokeStyle = '#1a0503';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - 2);
+            ctx.quadraticCurveTo(cx - 4, cy - 18 - wingFlap * 6, cx + 10, cy - 10 - wingFlap * 4);
+            ctx.quadraticCurveTo(cx + 6, cy - 4, cx, cy - 2);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Testa
+            ctx.fillStyle = bodyGrad;
+            ctx.beginPath();
+            ctx.ellipse(cx + s * 0.28, cy - s * 0.05, s * 0.24, s * 0.22, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#2a0805';
+            ctx.lineWidth = 1.4;
+            ctx.stroke();
+
+            // Corno
+            ctx.fillStyle = '#f5d97b';
+            ctx.beginPath();
+            ctx.moveTo(cx + s * 0.24, cy - s * 0.22);
+            ctx.lineTo(cx + s * 0.30, cy - s * 0.40);
+            ctx.lineTo(cx + s * 0.34, cy - s * 0.20);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Occhio
+            ctx.fillStyle = '#fff8e0';
+            ctx.beginPath();
+            ctx.arc(cx + s * 0.38, cy - s * 0.10, 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#2a0805';
+            ctx.beginPath();
+            ctx.arc(cx + s * 0.40, cy - s * 0.10, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Sbuffo di fuoco (ogni tanto)
+            if ((Math.floor(game.wingPhase) % 6) < 2) {
+                const fx = cx + s * 0.50;
+                const fy = cy - s * 0.04;
+                const fireGrad = ctx.createRadialGradient(fx, fy, 1, fx + 10, fy, 14);
+                fireGrad.addColorStop(0, '#fff7a8');
+                fireGrad.addColorStop(0.4, '#ffb347');
+                fireGrad.addColorStop(1, 'rgba(255,69,0,0)');
+                ctx.fillStyle = fireGrad;
+                ctx.beginPath();
+                ctx.ellipse(fx + 8, fy, 12, 5, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function showStatus(title, text, btnLabel, btnAction) {
+            const el = document.getElementById('game-status');
+            el.innerHTML = '';
+            const h = document.createElement('h3'); h.textContent = title;
+            const p = document.createElement('p'); p.textContent = text;
+            const b = document.createElement('button'); b.textContent = btnLabel;
+            b.addEventListener('click', btnAction);
+            el.appendChild(h); el.appendChild(p); el.appendChild(b);
+            el.style.display = 'flex';
+        }
+        function hideStatus() {
+            document.getElementById('game-status').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
