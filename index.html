@@ -543,6 +543,25 @@
             text-transform: uppercase;
             text-shadow: 0 0 8px rgba(212,175,55,0.5);
         }
+        .transformation .caption-swords {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .transformation .caption-swords img {
+            width: 18px;
+            height: 18px;
+            max-width: none;
+            aspect-ratio: auto;
+            object-fit: contain;
+            border: none;
+            border-radius: 0;
+            background: none;
+            box-shadow: none;
+            filter: drop-shadow(0 0 6px rgba(212,175,55,0.55));
+            vertical-align: middle;
+        }
         .transformation .arrow {
             flex: 0 0 auto;
             width: 60px;
@@ -962,7 +981,7 @@
             <div class="transformation">
                 <figure>
                     <img src="cavaliere_ric.png" alt="Riccardo prima">
-                    <figcaption>Da così...</figcaption>
+                    <figcaption>Da così</figcaption>
                 </figure>
                 <div class="arrow" aria-hidden="true">
                     <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -990,7 +1009,11 @@
                 </div>
                 <figure>
                     <img src="cavaliere_arm.png" alt="Riccardo cavaliere">
-                    <figcaption>A così</figcaption>
+                    <figcaption class="caption-swords">
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2694.svg" alt="" aria-hidden="true">
+                        <span>A così</span>
+                        <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2694.svg" alt="" aria-hidden="true">
+                    </figcaption>
                 </figure>
             </div>
 
