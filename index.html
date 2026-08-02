@@ -514,6 +514,7 @@
         }
         .transformation figure {
             flex: 1 1 0;
+            min-width: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -521,6 +522,7 @@
             margin: 0;
         }
         .transformation img {
+            display: block;
             width: 100%;
             max-width: 170px;
             height: auto;
@@ -547,7 +549,9 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 8px;
+            max-width: 100%;
         }
         .transformation .caption-swords img {
             width: 18px;
@@ -976,7 +980,7 @@
                 <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2694.svg" alt="Spade incrociate">
             </div>
 
-            <p class="transformation-label">Per diventare...</p>
+            <p class="transformation-label">Diventerai...</p>
 
             <div class="transformation">
                 <figure>
