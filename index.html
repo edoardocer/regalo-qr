@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Il Guardiano di Erebor 🐉</title>
+    <title>Quest per il cavaliere Riccardino🐉</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=MedievalSharp&display=swap" rel="stylesheet">
@@ -27,21 +27,25 @@
             --dark-2: #1c0d0d;
         }
 
-        html, body { height: 100%; }
+        html, body { min-height: 100%; }
 
         body {
             background:
                 radial-gradient(ellipse at 20% 10%, rgba(94,25,25,0.35) 0%, transparent 55%),
                 radial-gradient(ellipse at 80% 90%, rgba(212,175,55,0.12) 0%, transparent 60%),
                 linear-gradient(135deg, var(--dark-1) 0%, var(--dark-2) 50%, #050202 100%);
+            background-attachment: fixed;
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            /* "safe center" evita che il contenuto più alto del viewport venga tagliato in cima */
+            align-items: safe center;
             padding: 24px;
             color: var(--parchment-soft);
             font-family: 'Cinzel', 'Palatino', 'Georgia', serif;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             position: relative;
         }
 
