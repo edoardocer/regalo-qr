@@ -505,15 +505,17 @@
 
         /* Trasformazione: da così a così */
         .transformation {
+            /* Larghezza IDENTICA per entrambe le immagini, indipendente dalla figure */
+            --img-w: clamp(110px, 38vw, 170px);
             margin: 22px 0 6px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             gap: 14px;
             flex-wrap: nowrap;
         }
         .transformation figure {
-            flex: 1 1 0;
+            flex: 0 1 auto;
             min-width: 0;
             display: flex;
             flex-direction: column;
@@ -523,10 +525,9 @@
         }
         .transformation img {
             display: block;
-            width: 100%;
-            max-width: 170px;
-            height: auto;
-            aspect-ratio: 3 / 4;
+            width: var(--img-w);
+            height: calc(var(--img-w) * 4 / 3);
+            max-width: none;
             object-fit: cover;
             object-position: center 25%;
             border: 2px solid var(--gold);
@@ -536,6 +537,7 @@
                 0 6px 18px rgba(0,0,0,0.7),
                 0 0 18px rgba(212,175,55,0.35),
                 inset 0 0 12px rgba(0,0,0,0.5);
+            flex-shrink: 0;
         }
         .transformation figcaption {
             font-family: 'Cinzel Decorative', serif;
@@ -554,6 +556,7 @@
             max-width: 100%;
         }
         .transformation .caption-swords img {
+            display: inline-block;
             width: 18px;
             height: 18px;
             max-width: none;
@@ -565,6 +568,7 @@
             box-shadow: none;
             filter: drop-shadow(0 0 6px rgba(212,175,55,0.55));
             vertical-align: middle;
+            flex-shrink: 0;
         }
         .transformation .arrow {
             flex: 0 0 auto;
@@ -594,7 +598,6 @@
             font-style: italic;
         }
         @media (max-width: 420px) {
-            .transformation img { max-width: 130px; }
             .transformation .arrow { width: 42px; height: 32px; }
             .transformation figcaption { font-size: 0.75rem; letter-spacing: 2px; }
         }
