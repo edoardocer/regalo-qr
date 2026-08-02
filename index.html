@@ -505,8 +505,9 @@
 
         /* Trasformazione: da così a così */
         .transformation {
-            /* Larghezza IDENTICA per entrambe le immagini, indipendente dalla figure */
-            --img-w: clamp(110px, 38vw, 170px);
+            /* Larghezza IDENTICA per entrambe le immagini, calcolata
+               in base allo spazio realmente disponibile (viewport - padding esterni - freccia). */
+            --img-w: clamp(70px, calc((100vw - 200px) / 2), 160px);
             margin: 22px 0 6px;
             display: flex;
             align-items: flex-start;
