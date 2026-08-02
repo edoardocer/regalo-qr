@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regalo 🐉</title>
+    <title>Il Guardiano di Erebor 🐉</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=MedievalSharp&display=swap" rel="stylesheet">
@@ -242,27 +242,27 @@
         }
 
         /* Ali che sbattono */
-        .wing-left  { transform-origin: 100px 105px; animation: flapLeft  0.9s ease-in-out infinite; }
-        .wing-right { transform-origin: 100px 105px; animation: flapRight 0.9s ease-in-out infinite; }
+        .wing-left  { transform-origin: 112px 135px; animation: flapLeft  0.9s ease-in-out infinite; }
+        .wing-right { transform-origin: 112px 135px; animation: flapRight 0.9s ease-in-out infinite; }
         @keyframes flapLeft {
             0%, 100% { transform: rotate(-6deg)  scaleY(1); }
-            50%      { transform: rotate(-32deg) scaleY(0.85); }
+            50%      { transform: rotate(-28deg) scaleY(0.9); }
         }
         @keyframes flapRight {
             0%, 100% { transform: rotate(6deg)  scaleY(1); }
-            50%      { transform: rotate(32deg) scaleY(0.85); }
+            50%      { transform: rotate(28deg) scaleY(0.9); }
         }
 
         /* Coda ondeggiante */
-        .tail { transform-origin: 130px 145px; animation: tailWag 2.5s ease-in-out infinite; }
+        .tail { transform-origin: 82px 168px; animation: tailWag 2.5s ease-in-out infinite; }
         @keyframes tailWag {
-            0%, 100% { transform: rotate(-4deg); }
-            50%      { transform: rotate(6deg); }
+            0%, 100% { transform: rotate(-5deg); }
+            50%      { transform: rotate(8deg); }
         }
 
         /* Occhio che sbatte */
         .eye-lid {
-            transform-origin: 102px 95px;
+            transform-origin: 118px 82px;
             animation: blink 4.5s infinite;
         }
         @keyframes blink {
@@ -272,7 +272,7 @@
 
         /* Sbuffo di fuoco */
         .fire-group {
-            transform-origin: 75px 115px;
+            transform-origin: 136px 130px;
             animation: fireBreath 5s ease-in-out infinite;
             opacity: 0;
         }
@@ -379,6 +379,23 @@
         }
 
         /* =========================================================
+           GRIGLIA QUIZ
+        ========================================================= */
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+        .quiz-grid button {
+            width: 100%;
+            padding: 16px 18px;
+            letter-spacing: 2px;
+        }
+        @media (max-width: 420px) {
+            .quiz-grid { grid-template-columns: 1fr; gap: 12px; }
+        }
+
+        /* =========================================================
            CAMERA DEL TESORO
         ========================================================= */
         .reveal-title {
@@ -422,6 +439,143 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(212,175,55,0.5);
+        }
+
+        /* =========================================================
+           TESORO: EMBLEMI CAVALIERE
+        ========================================================= */
+        .knight-emblems {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 22px;
+            margin: 22px 0 14px;
+            flex-wrap: wrap;
+        }
+        .knight-emblems img {
+            width: 56px;
+            height: 56px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.7))
+                    drop-shadow(0 0 12px rgba(212,175,55,0.4));
+            animation: emblemFloat 3.5s ease-in-out infinite;
+        }
+        .knight-emblems img:nth-child(1) { animation-delay: 0s;   }
+        .knight-emblems img:nth-child(2) { animation-delay: 0.4s; width: 76px; height: 76px; }
+        .knight-emblems img:nth-child(3) { animation-delay: 0.8s; }
+        @keyframes emblemFloat {
+            0%, 100% { transform: translateY(0)    rotate(-2deg); }
+            50%      { transform: translateY(-6px) rotate(2deg); }
+        }
+
+        .knight-scene {
+            margin: 18px 0 6px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 14px;
+        }
+        .knight-scene img {
+            width: 90px;
+            height: 90px;
+            filter: drop-shadow(0 6px 14px rgba(0,0,0,0.75));
+        }
+        .knight-scene .horse-hero {
+            width: 130px;
+            height: 130px;
+            animation: heroGallop 2s ease-in-out infinite;
+        }
+        @keyframes heroGallop {
+            0%, 100% { transform: translateY(0)     rotate(-3deg); }
+            50%      { transform: translateY(-10px) rotate(3deg); }
+        }
+
+        .knight-title {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold-bright);
+            font-size: 1.15rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 12px rgba(212,175,55,0.6);
+            margin-top: 6px;
+        }
+
+        /* Trasformazione: da così a così */
+        .transformation {
+            margin: 22px 0 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: nowrap;
+        }
+        .transformation figure {
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin: 0;
+        }
+        .transformation img {
+            width: 100%;
+            max-width: 170px;
+            height: auto;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            object-position: center 25%;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            background: #0d0906;
+            box-shadow:
+                0 6px 18px rgba(0,0,0,0.7),
+                0 0 18px rgba(212,175,55,0.35),
+                inset 0 0 12px rgba(0,0,0,0.5);
+        }
+        .transformation figcaption {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold-bright);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px rgba(212,175,55,0.5);
+        }
+        .transformation .arrow {
+            flex: 0 0 auto;
+            width: 60px;
+            height: 44px;
+            color: var(--gold);
+            filter: drop-shadow(0 0 8px rgba(212,175,55,0.55));
+            animation: arrowPulse 2s ease-in-out infinite;
+        }
+        .transformation .arrow svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        @keyframes arrowPulse {
+            0%, 100% { transform: translateX(0)  scale(1);    opacity: 0.9; }
+            50%      { transform: translateX(4px) scale(1.06); opacity: 1; }
+        }
+        .transformation-label {
+            font-family: 'Cinzel', serif;
+            color: var(--parchment);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-align: center;
+            margin-top: 18px;
+            font-style: italic;
+        }
+        @media (max-width: 420px) {
+            .transformation img { max-width: 130px; }
+            .transformation .arrow { width: 42px; height: 32px; }
+            .transformation figcaption { font-size: 0.75rem; letter-spacing: 2px; }
+        }
+        .knight-flourish {
+            color: var(--gold-deep);
+            letter-spacing: 6px;
+            font-size: 0.9rem;
+            margin: 6px 0 2px;
         }
 
         .footnote {
@@ -650,173 +804,6 @@
     <div id="ember-container" style="position: fixed; inset: 0; pointer-events: none; z-index: 1;"></div>
 
     <!-- ================================================
-         DEFINIZIONE DRAGHETTO SVG (riutilizzabile)
-    ================================================= -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-        <defs>
-            <radialGradient id="bodyGrad" cx="45%" cy="40%" r="70%">
-                <stop offset="0%"   stop-color="#c93a1a"/>
-                <stop offset="55%"  stop-color="#7a1c0d"/>
-                <stop offset="100%" stop-color="#3a0d05"/>
-            </radialGradient>
-            <linearGradient id="bellyGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%"   stop-color="#f5c96a"/>
-                <stop offset="100%" stop-color="#a8730f"/>
-            </linearGradient>
-            <radialGradient id="wingGrad" cx="30%" cy="40%" r="80%">
-                <stop offset="0%"   stop-color="#8a2416"/>
-                <stop offset="100%" stop-color="#2c0704"/>
-            </radialGradient>
-            <radialGradient id="fireGrad" cx="100%" cy="50%" r="100%">
-                <stop offset="0%"   stop-color="#fff7a8"/>
-                <stop offset="30%"  stop-color="#ffb347"/>
-                <stop offset="70%"  stop-color="#ff4500"/>
-                <stop offset="100%" stop-color="rgba(139,0,0,0)"/>
-            </radialGradient>
-            <radialGradient id="eyeGrad" cx="50%" cy="50%" r="50%">
-                <stop offset="0%"   stop-color="#fff8c8"/>
-                <stop offset="60%"  stop-color="#f5d97b"/>
-                <stop offset="100%" stop-color="#a8730f"/>
-            </radialGradient>
-
-            <symbol id="dragon" viewBox="0 0 220 220">
-                <!-- SBUFFO DI FUOCO -->
-                <g class="fire-group">
-                    <g class="fire-inner">
-                        <path d="M 78 115
-                                 Q 55 107, 30 112
-                                 Q 15 115, 5 117
-                                 Q 15 122, 30 125
-                                 Q 55 127, 78 122 Z"
-                              fill="url(#fireGrad)"/>
-                        <path d="M 78 117
-                                 Q 60 115, 40 117
-                                 Q 30 118, 22 119
-                                 Q 30 121, 40 122
-                                 Q 60 123, 78 121 Z"
-                              fill="#fff7a8" opacity="0.85"/>
-                    </g>
-                </g>
-
-                <!-- CODA -->
-                <g class="tail">
-                    <path d="M 130 145
-                             Q 165 155, 185 140
-                             Q 200 130, 205 115
-                             Q 195 122, 180 128
-                             Q 165 135, 145 130 Z"
-                          fill="url(#bodyGrad)" stroke="#2a0805" stroke-width="1.5"/>
-                    <path d="M 200 118
-                             L 213 108
-                             L 208 122
-                             L 218 118
-                             L 205 132 Z"
-                          fill="#c93a1a" stroke="#2a0805" stroke-width="1.2"/>
-                    <path d="M 150 138 L 152 132 L 155 138 Z
-                             M 165 138 L 168 130 L 172 138 Z
-                             M 180 135 L 184 126 L 188 135 Z"
-                          fill="#f5c96a" stroke="#2a0805" stroke-width="0.8"/>
-                </g>
-
-                <!-- ALA SINISTRA -->
-                <g class="wing-left">
-                    <path d="M 100 105
-                             Q 60 60, 25 55
-                             Q 40 75, 45 95
-                             Q 30 88, 15 92
-                             Q 35 105, 55 110
-                             Q 40 115, 30 125
-                             Q 55 122, 75 118
-                             Q 85 115, 100 110 Z"
-                          fill="url(#wingGrad)" stroke="#1a0503" stroke-width="1.5"/>
-                    <path d="M 100 105 Q 70 80, 45 70 M 100 108 Q 65 95, 40 100 M 100 110 Q 70 115, 50 120"
-                          stroke="#4a1108" stroke-width="1.2" fill="none" opacity="0.7"/>
-                </g>
-
-                <!-- ALA DESTRA -->
-                <g class="wing-right">
-                    <path d="M 100 105
-                             Q 140 60, 175 55
-                             Q 160 75, 155 95
-                             Q 170 88, 185 92
-                             Q 165 105, 145 110
-                             Q 160 115, 170 125
-                             Q 145 122, 125 118
-                             Q 115 115, 100 110 Z"
-                          fill="url(#wingGrad)" stroke="#1a0503" stroke-width="1.5"/>
-                    <path d="M 100 105 Q 130 80, 155 70 M 100 108 Q 135 95, 160 100 M 100 110 Q 130 115, 150 120"
-                          stroke="#4a1108" stroke-width="1.2" fill="none" opacity="0.7"/>
-                </g>
-
-                <!-- CORPO -->
-                <ellipse cx="110" cy="130" rx="42" ry="38"
-                         fill="url(#bodyGrad)" stroke="#2a0805" stroke-width="2"/>
-                <ellipse cx="110" cy="140" rx="26" ry="24"
-                         fill="url(#bellyGrad)" opacity="0.95"/>
-                <path d="M 92 135 Q 110 138, 128 135 M 90 145 Q 110 148, 130 145 M 94 155 Q 110 158, 126 155"
-                      stroke="#8a5a15" stroke-width="0.8" fill="none" opacity="0.6"/>
-
-                <!-- CRESTA DORSALE -->
-                <path d="M 92 100 L 96 88 L 100 100
-                         M 105 100 L 110 84 L 115 100
-                         M 120 105 L 126 92 L 130 105
-                         M 133 115 L 140 105 L 143 118"
-                      fill="#f5c96a" stroke="#2a0805" stroke-width="1"/>
-
-                <!-- TESTA -->
-                <ellipse cx="95" cy="98" rx="34" ry="30"
-                         fill="url(#bodyGrad)" stroke="#2a0805" stroke-width="2"/>
-                <!-- Muso -->
-                <path d="M 65 112
-                         Q 55 116, 60 122
-                         Q 70 126, 82 122
-                         Q 90 119, 92 112
-                         Z"
-                      fill="#a82c14" stroke="#2a0805" stroke-width="1.5"/>
-                <!-- Bocca aperta -->
-                <path d="M 60 120 Q 72 124, 88 118"
-                      stroke="#2a0805" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                <!-- Dentini -->
-                <path d="M 70 119 L 72 124 L 74 119 Z
-                         M 78 119 L 80 123 L 82 119 Z"
-                      fill="#fff8e0" stroke="#2a0805" stroke-width="0.5"/>
-                <!-- Narici -->
-                <ellipse cx="66" cy="112" rx="1.8" ry="1.3" fill="#2a0805"/>
-
-                <!-- Corna -->
-                <path d="M 82 75 Q 78 60, 70 52 Q 76 58, 84 68 Z"
-                      fill="#f5d97b" stroke="#2a0805" stroke-width="1.2"/>
-                <path d="M 108 72 Q 112 55, 122 48 Q 114 60, 112 70 Z"
-                      fill="#f5d97b" stroke="#2a0805" stroke-width="1.2"/>
-
-                <!-- Orecchio -->
-                <path d="M 118 88 Q 128 82, 130 92 Q 124 92, 118 96 Z"
-                      fill="#7a1c0d" stroke="#2a0805" stroke-width="1.2"/>
-
-                <!-- Occhio -->
-                <circle cx="102" cy="95" r="7"   fill="#fff8e0" stroke="#2a0805" stroke-width="1.2"/>
-                <circle cx="103" cy="95" r="4.5" fill="url(#eyeGrad)"/>
-                <ellipse cx="103" cy="95" rx="1.4" ry="3.5" fill="#2a0805"/>
-                <circle cx="102" cy="93" r="1" fill="#fff"/>
-                <!-- Palpebra -->
-                <ellipse class="eye-lid" cx="102" cy="95" rx="7.5" ry="7"
-                         fill="#7a1c0d" stroke="#2a0805" stroke-width="1.2"/>
-                <!-- Sopracciglio nobile -->
-                <path d="M 96 85 Q 104 82, 112 87"
-                      stroke="#2a0805" stroke-width="2" fill="none" stroke-linecap="round"/>
-
-                <!-- Zampette -->
-                <ellipse cx="90" cy="168" rx="10" ry="8" fill="#7a1c0d" stroke="#2a0805" stroke-width="1.5"/>
-                <path d="M 82 172 L 80 176 M 88 174 L 87 178 M 94 174 L 95 178"
-                      stroke="#2a0805" stroke-width="1.2" stroke-linecap="round"/>
-                <ellipse cx="125" cy="168" rx="10" ry="8" fill="#7a1c0d" stroke="#2a0805" stroke-width="1.5"/>
-                <path d="M 117 172 L 115 176 M 123 174 L 122 178 M 130 174 L 132 178"
-                      stroke="#2a0805" stroke-width="1.2" stroke-linecap="round"/>
-            </symbol>
-        </defs>
-    </svg>
-
-    <!-- ================================================
          STEP 1: L'INGRESSO DELLA CAVERNA
     ================================================= -->
     <div id="step-name" class="container fade-in">
@@ -825,15 +812,13 @@
         <div class="ornament"></div>
 
         <div class="speech-bubble">
-            <h1>"Se hai trovato questo link vuol dire che c'è qualcosa per te... come ti chiami, viandante?"</h1>
+            <h1>"Se mi hai trovato vuol dire che qualcuno (che ti ama tanto tanto) ha lasciato qualcosa per te... come ti chiami, viandante?"</h1>
         </div>
 
         <div class="dragon-stage">
             <div class="dragon-aura"></div>
             <div class="dragon-floor"></div>
-            <svg class="dragon-svg" viewBox="0 0 220 220" role="img" aria-label="Draghetto guardiano">
-                <use href="#dragon"/>
-            </svg>
+            <img class="dragon-svg" src="animated-dragon-image-0130.gif" alt="Draghetto guardiano">
         </div>
 
         <input type="text" id="name-input" placeholder="Pronuncia il tuo nome, mortale...">
@@ -849,20 +834,44 @@
         <div class="ornament"></div>
 
         <div class="speech-bubble">
-            <h1>"Va bene... ma ancora non mi fido. Sei per caso il designer più bello e bravo del mondo?"</h1>
+            <h1>"Va bene... Potresti essere tu la persona che cerco. Sei per caso il designer più bello e bravo del mondo?"</h1>
         </div>
 
         <div class="dragon-stage">
             <div class="dragon-aura"></div>
             <div class="dragon-floor"></div>
-            <svg class="dragon-svg" viewBox="0 0 220 220" role="img" aria-label="Draghetto sospettoso">
-                <use href="#dragon"/>
-            </svg>
+            <img class="dragon-svg" src="animated-dragon-image-0130.gif" alt="Draghetto sospettoso">
         </div>
 
         <div class="btn-group">
             <button onclick="handleTrustYes()">Sì, lo sono</button>
             <button class="btn-secondary" onclick="handleTrustNo()">No</button>
+        </div>
+    </div>
+
+    <!-- ================================================
+         STEP 1.6: L'ENIGMA DEL FIDO AIUTANTE
+    ================================================= -->
+    <div id="step-quiz" class="container hidden">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="ornament"></div>
+
+        <div class="speech-bubble">
+            <h1>"Se sei veramente chi dici di essere, chi è il tuo fido aiutante?"</h1>
+        </div>
+
+        <div class="dragon-stage">
+            <div class="dragon-aura"></div>
+            <div class="dragon-floor"></div>
+            <img class="dragon-svg" src="animated-dragon-image-0130.gif" alt="Draghetto indagatore">
+        </div>
+
+        <div class="quiz-grid">
+            <button onclick="checkQuizAnswer('Aragorn')">Aragorn</button>
+            <button onclick="checkQuizAnswer('Ent')">Ent</button>
+            <button onclick="checkQuizAnswer('Maxino')">Maxino</button>
+            <button onclick="checkQuizAnswer('Bilbo')">Bilbo</button>
         </div>
     </div>
 
@@ -875,7 +884,7 @@
         <div class="ornament"></div>
 
         <div class="speech-bubble">
-            <h1>"Prima del tesoro, un'ultima prova: guida il draghetto fino al vessillo dorato!"</h1>
+            <h1>"Allora sei davvero tu! Benissimo, dimostra di essere un bravo cavaliere! Salta in groppa ed aiutami a raggiungere quel traguardo, non userò le mie ali, sarebbe troppo facile!"</h1>
         </div>
 
         <p class="game-intro">Tocca lo schermo (o premi <strong style="color: var(--gold-bright);">SPAZIO</strong>) per far saltare il draghetto sopra gli ostacoli.</p>
@@ -892,7 +901,7 @@
             <canvas id="game-canvas"></canvas>
             <div id="game-status" class="game-status">
                 <h3>Pronto, viandante?</h3>
-                <p>Il draghetto deve raggiungere il vessillo dorato evitando le rocce ardenti.</p>
+                <p>Fammi raggiungere lo striscione FINISH evitando le rocce ardenti.</p>
                 <button onclick="startGame()">Inizia la corsa</button>
             </div>
         </div>
@@ -911,25 +920,80 @@
         <div class="dragon-stage">
             <div class="dragon-aura" style="background: radial-gradient(ellipse at center, rgba(212,175,55,0.4) 0%, rgba(255,220,120,0.15) 30%, transparent 70%);"></div>
             <div class="dragon-floor"></div>
-            <svg class="dragon-svg" viewBox="0 0 220 220" role="img" aria-label="Draghetto placato">
-                <use href="#dragon"/>
-            </svg>
+            <img class="dragon-svg" src="animated-dragon-image-0130.gif" alt="Draghetto placato">
         </div>
 
-        <h1 class="reveal-title">Identità Confermata 👑</h1>
+        <h1 class="reveal-title">Hai superato la prova! Sei un vero cavaliere</h1>
         <p class="reveal-sub">
             Benvenuto, <strong style="color: var(--gold-bright);">Riccardo</strong>.<br>
-            L'Arkenpietra riflette la tua verità. Il tesoro è tuo.
+            Hai dimostrato di essere un valoroso cavaliere. Il tuo destino ti attende.
         </p>
 
         <div class="gift-box">
-            <h2>🏆 L'Antico Bottino</h2>
-            <p style="margin-top: 10px; color: #c4b491; font-size: 0.95rem; font-style: italic; line-height: 1.6;">
-                Inserisci qui la descrizione finale o il link al regalo vero e proprio!
+            <div class="knight-flourish">✦ ✦ ✦</div>
+            <h2>Il Tuo Destino è quello di padroneggiare l'arte del montare a cavallo! La persona che ti ha lasciato questo messaggio ti spiegherà tutto!</h2>
+
+            <div class="knight-scene">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3f0.svg" alt="Castello">
+                <img class="horse-hero" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f3c7.svg" alt="Cavaliere in sella">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f332.svg" alt="Foresta">
+            </div>
+
+            <p class="knight-title"></p>
+
+            <p style="margin-top: 14px; color: #e6d3b8; font-size: 1rem; line-height: 1.7;">
+                Sali in groppa al tuo destriero, impugna le redini e cavalca verso la gloria.<br>
+                D'ora in avanti non sarai piú un semplice viandante:<br>
+                <strong style="color: var(--gold-bright);">diventerai un prode cavaliere.</strong>
             </p>
+
+            <div class="knight-emblems">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f6e1.svg" alt="Scudo">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f40e.svg" alt="Cavallo">
+                <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/2694.svg" alt="Spade incrociate">
+            </div>
+
+            <p class="transformation-label">Per diventare da così... a così</p>
+
+            <div class="transformation">
+                <figure>
+                    <img src="cavaliere_ric.png" alt="Riccardo prima">
+                    <figcaption>Da così</figcaption>
+                </figure>
+                <div class="arrow" aria-hidden="true">
+                    <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="arrGold" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%"   stop-color="#8a6d3b"/>
+                                <stop offset="50%"  stop-color="#f5d97b"/>
+                                <stop offset="100%" stop-color="#d4af37"/>
+                            </linearGradient>
+                        </defs>
+                        <!-- Ornamento sinistro -->
+                        <circle cx="8" cy="30" r="4" fill="url(#arrGold)"/>
+                        <circle cx="8" cy="30" r="1.6" fill="#1a0f08"/>
+                        <!-- Asta principale con doppio filo -->
+                        <path d="M14 30 L88 30" stroke="url(#arrGold)" stroke-width="4" stroke-linecap="round"/>
+                        <path d="M18 30 L84 30" stroke="#1a0f08" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+                        <!-- Ali/piume decorative -->
+                        <path d="M22 30 L34 20 M22 30 L34 40" stroke="url(#arrGold)" stroke-width="2.4" stroke-linecap="round"/>
+                        <path d="M40 30 L50 22 M40 30 L50 38" stroke="url(#arrGold)" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+                        <!-- Punta a diamante ornata -->
+                        <path d="M84 14 L112 30 L84 46 L92 30 Z" fill="url(#arrGold)" stroke="#1a0f08" stroke-width="1.2" stroke-linejoin="round"/>
+                        <!-- Riflesso sulla punta -->
+                        <path d="M96 22 L106 30 L96 38" stroke="#fff8c8" stroke-width="1" stroke-linecap="round" opacity="0.7" fill="none"/>
+                    </svg>
+                </div>
+                <figure>
+                    <img src="cavaliere_arm.png" alt="Riccardo cavaliere">
+                    <figcaption>A così</figcaption>
+                </figure>
+            </div>
+
+            <div class="knight-flourish">✦ ✦ ✦</div>
         </div>
 
-        <p class="footnote">✦ Custodito nei meandri della montagna ✦</p>
+        <p class="footnote">✦ Che la tua cavalcata sia leggendaria ✦</p>
     </div>
 
     <!-- ================================================
@@ -944,12 +1008,23 @@
     </div>
 
     <!-- ================================================
+         POP-UP RISPOSTA QUIZ ERRATA
+    ================================================= -->
+    <div id="modal-wrong-quiz" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3>"Bugiardo!" 🐍</h3>
+            <p>Nessun vero eroe dimenticherebbe il proprio fido aiutante. Torna da dove sei venuto, impostore.</p>
+            <button class="btn-close" onclick="closeModal('modal-wrong-quiz')">Ritenta</button>
+        </div>
+    </div>
+
+    <!-- ================================================
          POP-UP RIFIUTO FIDUCIA
     ================================================= -->
     <div id="modal-go-away" class="modal-overlay hidden">
         <div class="modal-content">
-            <h3>"Allora non sei tu! Vai via!" 🔥</h3>
-            <p>Il drago spalanca le fauci esalando fiamme distruttive! Hai tradito le mie aspettative. Ritorna nel buio!</p>
+            <h3>"Allora non sei chi dici di essere! Vai via!" 🔥</h3>
+            <p>Non farmi spalancare le fauci e avvolgerti con le mie fiamme distruttive! </p>
             <button class="btn-close" onclick="resetToFirstPage()">Torna all'inizio</button>
         </div>
     </div>
@@ -988,11 +1063,21 @@
 
         function handleTrustYes() {
             document.getElementById('step-trust').classList.add('hidden');
-            const stepGame = document.getElementById('step-game');
-            stepGame.classList.remove('hidden');
-            stepGame.classList.add('fade-in');
-            // Prepara il canvas quando lo step diventa visibile
-            setTimeout(initGame, 50);
+            const stepQuiz = document.getElementById('step-quiz');
+            stepQuiz.classList.remove('hidden');
+            stepQuiz.classList.add('fade-in');
+        }
+
+        function checkQuizAnswer(answer) {
+            if (answer === 'Maxino') {
+                document.getElementById('step-quiz').classList.add('hidden');
+                const stepGame = document.getElementById('step-game');
+                stepGame.classList.remove('hidden');
+                stepGame.classList.add('fade-in');
+                setTimeout(initGame, 50);
+            } else {
+                document.getElementById('modal-wrong-quiz').classList.remove('hidden');
+            }
         }
 
         function showReveal() {
@@ -1033,13 +1118,14 @@
             height: 0,
             dpr: 1,
             running: false,
+            won: false,
             rafId: null,
             lastTime: 0,
             // Player
             playerX: 60,
             playerY: 0,
             playerVY: 0,
-            playerSize: 42,
+            playerSize: 52,
             gravity: 2200,   // px/s^2
             jumpVel: -780,   // px/s
             grounded: true,
@@ -1051,7 +1137,16 @@
             obstacles: [],
             nextObstacleAt: 0,
             bgOffset: 0,
-            wingPhase: 0
+            wingPhase: 0,
+            // Traguardo
+            flagX: 0
+        };
+
+        // Immagine draghetto (Twemoji) condivisa con le altre pagine
+        const dragonImg = new Image();
+        dragonImg.src = 'https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f409.svg';
+        dragonImg.onload = function () {
+            if (game.ctx) drawFrame();
         };
 
         function initGame() {
@@ -1114,6 +1209,7 @@
         function startGame() {
             resizeCanvas();
             game.running = true;
+            game.won = false;
             game.playerY = game.groundY - game.playerSize;
             game.playerVY = 0;
             game.grounded = true;
@@ -1122,6 +1218,8 @@
             game.obstacles = [];
             game.nextObstacleAt = 450;
             game.bgOffset = 0;
+            // Il vessillo parte fuori schermo a destra e si avvicinerà al draghetto
+            game.flagX = game.width + game.goalDistance;
             game.lastTime = performance.now();
             hideStatus();
             updateProgress();
@@ -1140,23 +1238,18 @@
         }
 
         function update(dt) {
-            // Progressione difficoltà
-            game.speed += 8 * dt; // accelera lentamente
+            // Progressione difficoltà (solo mentre non ha ancora vinto)
+            if (!game.won) {
+                game.speed += 8 * dt;
+            }
             game.distance += game.speed * dt;
             game.bgOffset = (game.bgOffset + game.speed * dt * 0.4) % 40;
             game.wingPhase += dt * 14;
 
-            // Vittoria
-            if (game.distance >= game.goalDistance) {
-                game.running = false;
-                updateProgress();
-                showStatus('Trionfo! 👑',
-                    'Il draghetto ha raggiunto il vessillo. Il tesoro si sta rivelando...',
-                    'Reclama il tesoro', showReveal);
-                return;
-            }
+            // Il vessillo scorre verso sinistra insieme al mondo
+            game.flagX -= game.speed * dt;
 
-            // Fisica giocatore
+            // Fisica giocatore (sempre attiva, anche durante la celebrazione)
             game.playerVY += game.gravity * dt;
             game.playerY  += game.playerVY * dt;
             if (game.playerY >= game.groundY - game.playerSize) {
@@ -1165,8 +1258,35 @@
                 game.grounded = true;
             }
 
-            // Genera ostacoli
-            if (game.distance >= game.nextObstacleAt && game.distance < game.goalDistance - 400) {
+            // Se ha già vinto, salta la parte di gioco (niente ostacoli / collisioni)
+            if (game.won) {
+                updateProgress();
+                return;
+            }
+
+            // Vittoria: il vessillo raggiunge il draghetto
+            const playerCenter = game.playerX + game.playerSize * 0.5;
+            if (game.flagX <= playerCenter) {
+                game.won = true;
+                game.speed = 0;
+                // Salto di celebrazione
+                game.playerVY = game.jumpVel * 0.9;
+                game.grounded = false;
+                updateProgress();
+                // Piccola pausa poi mostra l'overlay di vittoria
+                setTimeout(function () {
+                    game.running = false;
+                    showStatus('Trionfo! 👑',
+                        'Siamo arrivati al traguardo! Ti posso finalmente rivelare ciò che ti attende...',
+                        'Scopri il tesoro', showReveal);
+                }, 1100);
+                return;
+            }
+
+            // Genera ostacoli, ma smette in anticipo per lasciare
+            // una corsia libera prima che entri in scena il vessillo.
+            const safeZoneAhead = 500;
+            if (game.distance >= game.nextObstacleAt && game.flagX > game.width + safeZoneAhead) {
                 spawnObstacle();
                 const gap = 260 + Math.random() * 320 - Math.min(120, game.speed - 260);
                 game.nextObstacleAt = game.distance + Math.max(180, gap);
@@ -1187,7 +1307,7 @@
                     pb.y < ob.y + ob.h && pb.y + pb.h > ob.y) {
                     game.running = false;
                     showStatus('Bruciato! 🔥',
-                        'Il draghetto è inciampato in una roccia ardente. Riprova!',
+                        'Mi hai fatto inciampare in una roccia ardente. Riprova!',
                         'Riprova', startGame);
                     return;
                 }
@@ -1208,7 +1328,10 @@
         }
 
         function updateProgress() {
-            const pct = Math.min(100, (game.distance / game.goalDistance) * 100);
+            // Percentuale = quanto si è avvicinato il vessillo al draghetto
+            const totalTravel = (game.width + game.goalDistance) - game.playerX;
+            const travelled   = totalTravel - Math.max(0, game.flagX - game.playerX);
+            const pct = Math.min(100, Math.max(0, (travelled / totalTravel) * 100));
             document.getElementById('progress-fill').style.width = pct + '%';
         }
 
@@ -1267,11 +1390,9 @@
                 ctx.stroke();
             }
 
-            // Traguardo (appare avvicinandosi)
-            const remaining = game.goalDistance - game.distance;
-            if (remaining < W) {
-                const flagX = W - remaining + 40;
-                drawFlag(flagX, game.groundY);
+            // Traguardo (appare quando entra nella vista)
+            if (game.flagX < W + 40) {
+                drawFlag(game.flagX, game.groundY);
             }
 
             // Ostacoli
@@ -1305,128 +1426,158 @@
 
         function drawFlag(x, groundY) {
             const ctx = game.ctx;
-            // Asta
-            ctx.strokeStyle = '#d4af37';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(x, groundY);
-            ctx.lineTo(x, groundY - 70);
-            ctx.stroke();
-            // Base dorata
-            ctx.fillStyle = '#d4af37';
+            const poleH = 150;
+            const bannerW = 140;
+            const bannerH = 46;
+            const topY = groundY - poleH;
+            const rightPoleX = x + bannerW;
+
+            // Ondeggio leggero dello striscione
+            const wave = Math.sin(game.wingPhase * 0.6) * 3;
+
+            // Pali dorati
+            const poleGrad = ctx.createLinearGradient(x - 3, 0, x + 3, 0);
+            poleGrad.addColorStop(0, '#8a6d3b');
+            poleGrad.addColorStop(0.5, '#f5d97b');
+            poleGrad.addColorStop(1, '#8a6d3b');
+            ctx.fillStyle = poleGrad;
+            ctx.fillRect(x - 2, topY, 4, poleH);
+            ctx.fillRect(rightPoleX - 2, topY, 4, poleH);
+
+            // Basi dei pali
+            ctx.fillStyle = '#3a2410';
             ctx.fillRect(x - 8, groundY - 4, 16, 4);
-            // Vessillo
-            const flagGrad = ctx.createLinearGradient(x, groundY - 70, x + 34, groundY - 40);
-            flagGrad.addColorStop(0, '#f5d97b');
-            flagGrad.addColorStop(1, '#b32424');
-            ctx.fillStyle = flagGrad;
+            ctx.fillRect(rightPoleX - 8, groundY - 4, 16, 4);
+
+            // Pomelli sferici in cima
+            ctx.fillStyle = '#f5d97b';
+            ctx.beginPath(); ctx.arc(x, topY - 3, 4, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(rightPoleX, topY - 3, 4, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#2a0805';
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.arc(x, topY - 3, 4, 0, Math.PI * 2); ctx.stroke();
+            ctx.beginPath(); ctx.arc(rightPoleX, topY - 3, 4, 0, Math.PI * 2); ctx.stroke();
+
+            // Corda tra i pali
+            ctx.strokeStyle = 'rgba(20,10,5,0.7)';
+            ctx.lineWidth = 1.5;
             ctx.beginPath();
-            ctx.moveTo(x, groundY - 70);
-            ctx.lineTo(x + 34, groundY - 60);
-            ctx.lineTo(x, groundY - 45);
+            ctx.moveTo(x + 2, topY + 2);
+            ctx.quadraticCurveTo((x + rightPoleX) / 2, topY + 6 + wave, rightPoleX - 2, topY + 2);
+            ctx.stroke();
+
+            // Corpo dello striscione
+            const bx = x + 2;
+            const by = topY + 6;
+            const bx2 = rightPoleX - 2;
+            const by2 = by + bannerH;
+            const bannerGrad = ctx.createLinearGradient(bx, by, bx, by2);
+            bannerGrad.addColorStop(0, '#a82c14');
+            bannerGrad.addColorStop(0.5, '#c93a1a');
+            bannerGrad.addColorStop(1, '#7a1c0d');
+            ctx.fillStyle = bannerGrad;
+            ctx.beginPath();
+            ctx.moveTo(bx, by);
+            ctx.quadraticCurveTo((bx + bx2) / 2, by + wave, bx2, by);
+            ctx.lineTo(bx2, by2);
+            ctx.quadraticCurveTo((bx + bx2) / 2, by2 + wave, bx, by2);
             ctx.closePath();
             ctx.fill();
             ctx.strokeStyle = '#2a0805';
-            ctx.lineWidth = 1;
+            ctx.lineWidth = 1.4;
             ctx.stroke();
+
+            // Bordi dorati orizzontali
+            ctx.strokeStyle = '#f5d97b';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(bx, by + 4);
+            ctx.quadraticCurveTo((bx + bx2) / 2, by + 4 + wave, bx2, by + 4);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(bx, by2 - 4);
+            ctx.quadraticCurveTo((bx + bx2) / 2, by2 - 4 + wave, bx2, by2 - 4);
+            ctx.stroke();
+
+            // Frangia dorata sotto lo striscione
+            ctx.fillStyle = '#d4af37';
+            const fringeCount = 9;
+            for (let i = 0; i < fringeCount; i++) {
+                const t = i / (fringeCount - 1);
+                const fx = bx + t * (bx2 - bx);
+                const fy = by2 + wave * (1 - Math.abs(0.5 - t) * 2);
+                ctx.beginPath();
+                ctx.moveTo(fx - 4, fy);
+                ctx.lineTo(fx + 4, fy);
+                ctx.lineTo(fx, fy + 7);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            // Scritta FINISH
+            const cx = (bx + bx2) / 2;
+            const cy = (by + by2) / 2 + wave * 0.5;
+            ctx.save();
+            ctx.font = 'bold 20px "Cinzel Decorative", "Cinzel", serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.lineWidth = 3;
+            ctx.strokeStyle = '#2a0805';
+            ctx.strokeText('FINISH', cx, cy);
+            const textGrad = ctx.createLinearGradient(cx - 40, cy - 10, cx + 40, cy + 10);
+            textGrad.addColorStop(0, '#fff8c8');
+            textGrad.addColorStop(0.5, '#f5d97b');
+            textGrad.addColorStop(1, '#d4af37');
+            ctx.fillStyle = textGrad;
+            ctx.fillText('FINISH', cx, cy);
+            ctx.restore();
+
+            // Bandierine triangolari in cima ai pali
+            ctx.fillStyle = '#b32424';
+            ctx.strokeStyle = '#2a0805';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(x, topY - 7);
+            ctx.lineTo(x + 14, topY - 3);
+            ctx.lineTo(x, topY + 1);
+            ctx.closePath();
+            ctx.fill(); ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(rightPoleX, topY - 7);
+            ctx.lineTo(rightPoleX + 14, topY - 3);
+            ctx.lineTo(rightPoleX, topY + 1);
+            ctx.closePath();
+            ctx.fill(); ctx.stroke();
         }
 
         function drawDragon(x, y, s) {
             const ctx = game.ctx;
             const cx = x + s / 2;
-            const cy = y + s / 2;
 
             // Ombra a terra
-            ctx.fillStyle = 'rgba(0,0,0,0.4)';
+            ctx.fillStyle = 'rgba(0,0,0,0.35)';
             ctx.beginPath();
-            ctx.ellipse(cx, game.groundY + 4, s * 0.4, 4, 0, 0, Math.PI * 2);
+            ctx.ellipse(cx, game.groundY + 4, s * 0.40, 4, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Coda
-            ctx.fillStyle = '#7a1c0d';
-            ctx.strokeStyle = '#2a0805';
-            ctx.lineWidth = 1.2;
-            ctx.beginPath();
-            ctx.moveTo(x + 4, cy + 4);
-            ctx.quadraticCurveTo(x - 8, cy + 10, x - 12, cy - 2);
-            ctx.quadraticCurveTo(x - 4, cy + 2, x + 4, cy - 2);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
+            // Piccola oscillazione di corsa quando \u00e8 a terra
+            const bob = game.grounded ? Math.sin(game.wingPhase * 1.4) * 1.5 : 0;
+            const tilt = game.playerVY < 0 ? -0.12 : (game.grounded ? 0 : 0.15);
 
-            // Corpo
-            const bodyGrad = ctx.createRadialGradient(cx - 4, cy - 4, 4, cx, cy, s * 0.55);
-            bodyGrad.addColorStop(0, '#c93a1a');
-            bodyGrad.addColorStop(1, '#5a1408');
-            ctx.fillStyle = bodyGrad;
-            ctx.beginPath();
-            ctx.ellipse(cx, cy + 2, s * 0.42, s * 0.38, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.strokeStyle = '#2a0805';
-            ctx.lineWidth = 1.4;
-            ctx.stroke();
+            ctx.save();
+            ctx.translate(cx, y + s / 2 + bob);
+            ctx.rotate(tilt);
+            ctx.scale(-1, 1);
 
-            // Pancia
-            ctx.fillStyle = '#f5c96a';
-            ctx.beginPath();
-            ctx.ellipse(cx, cy + 6, s * 0.24, s * 0.22, 0, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Ali che sbattono
-            const wingFlap = Math.sin(game.wingPhase) * 0.6;
-            ctx.fillStyle = '#4a1108';
-            ctx.strokeStyle = '#1a0503';
-            ctx.lineWidth = 1.2;
-            ctx.beginPath();
-            ctx.moveTo(cx, cy - 2);
-            ctx.quadraticCurveTo(cx - 4, cy - 18 - wingFlap * 6, cx + 10, cy - 10 - wingFlap * 4);
-            ctx.quadraticCurveTo(cx + 6, cy - 4, cx, cy - 2);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-
-            // Testa
-            ctx.fillStyle = bodyGrad;
-            ctx.beginPath();
-            ctx.ellipse(cx + s * 0.28, cy - s * 0.05, s * 0.24, s * 0.22, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.strokeStyle = '#2a0805';
-            ctx.lineWidth = 1.4;
-            ctx.stroke();
-
-            // Corno
-            ctx.fillStyle = '#f5d97b';
-            ctx.beginPath();
-            ctx.moveTo(cx + s * 0.24, cy - s * 0.22);
-            ctx.lineTo(cx + s * 0.30, cy - s * 0.40);
-            ctx.lineTo(cx + s * 0.34, cy - s * 0.20);
-            ctx.closePath();
-            ctx.fill();
-            ctx.stroke();
-
-            // Occhio
-            ctx.fillStyle = '#fff8e0';
-            ctx.beginPath();
-            ctx.arc(cx + s * 0.38, cy - s * 0.10, 3, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.fillStyle = '#2a0805';
-            ctx.beginPath();
-            ctx.arc(cx + s * 0.40, cy - s * 0.10, 1.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Sbuffo di fuoco (ogni tanto)
-            if ((Math.floor(game.wingPhase) % 6) < 2) {
-                const fx = cx + s * 0.50;
-                const fy = cy - s * 0.04;
-                const fireGrad = ctx.createRadialGradient(fx, fy, 1, fx + 10, fy, 14);
-                fireGrad.addColorStop(0, '#fff7a8');
-                fireGrad.addColorStop(0.4, '#ffb347');
-                fireGrad.addColorStop(1, 'rgba(255,69,0,0)');
-                ctx.fillStyle = fireGrad;
-                ctx.beginPath();
-                ctx.ellipse(fx + 8, fy, 12, 5, 0, 0, Math.PI * 2);
-                ctx.fill();
+            if (dragonImg.complete && dragonImg.naturalWidth > 0) {
+                ctx.drawImage(dragonImg, -s / 2, -s / 2, s, s);
+            } else {
+                ctx.font = (s * 0.9) + 'px serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('\ud83d\udc09', 0, 0);
             }
+            ctx.restore();
         }
 
         function showStatus(title, text, btnLabel, btnAction) {
